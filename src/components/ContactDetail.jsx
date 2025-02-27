@@ -1,14 +1,17 @@
-import React from 'react';
+import { getTypeIcon } from "../libs/utils";
 
-const ContactDetail = ({ contact }) => {
-  return (
-    <div className="contact-detail">
-      <h2>Featured Contact</h2>
-      <p>Name: {contact.name}</p>
-      <p>Phone: {contact.phone}</p>
-      <p>Email: {contact.email}</p>
-    </div>
-  );
-};
+export default function ContactDetail(props) {
+    const contact = props.contact;
 
-export default ContactDetail;
+    return (
+        <div className="contact-detail">
+            <h2>Contacto Destacado</h2>
+            <div className="detail-card">
+                <h3><span className="contact-type">{getTypeIcon(contact.type)}</span>{contact.fullname}</h3>
+                <p>📱 {contact.phonenumber}</p>
+                <p>📧 {contact.email}</p>
+                
+            </div>
+        </div>
+    )
+}

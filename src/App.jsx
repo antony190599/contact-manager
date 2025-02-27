@@ -1,29 +1,27 @@
-import React, { useState } from 'react';
-import Header from './components/Header';
-import ContactList from './components/ContactList';
-import ContactDetail from './components/ContactDetail';
-import './App.css';
+import './App.css'
+import Header from './components/Header'
+import ContactList from './components/ContactList'
+import ContactDetail from './components/ContactDetail'
+import contacts from './data/contacts.json'
 
-const App = () => {
-  const [featuredContact, setFeaturedContact] = useState({
-    name: 'John Doe',
-    phone: '123-456-7890',
-    email: 'john.doe@example.com'
-  });
+function App() {
 
-  const handleSelectContact = (contact) => {
-    setFeaturedContact(contact);
-  };
 
-  return (
-    <div className="App">
-      <Header />
-      <main>
-        <ContactList onSelectContact={handleSelectContact} />
-        <ContactDetail contact={featuredContact} />
-      </main>
-    </div>
-  );
-};
+    const pinnedContact = contacts[0];
 
-export default App;
+    return (
+        <div className="app">
+            <Header />
+            <div className="app-container">
+                <aside className="sidebar">
+                    <ContactDetail contact={pinnedContact} />
+                </aside>
+                <main className="main-content">
+                    <ContactList contacts={contacts} />
+                </main>
+            </div>
+        </div>
+    )
+}
+
+export default App

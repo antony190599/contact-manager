@@ -1,15 +1,16 @@
-import React from 'react';
-
-const Header = () => {
-  return (
-    <header>
-      <h1>Contact Manager</h1>
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-      </nav>
-    </header>
-  );
-};
-
-export default Header;
+export default function Header() {
+    return (
+        <header className="app-header">
+            <div className="header-content">
+                <h1>Contact Manager</h1>
+                <nav>
+                    <ul>
+                        <li><a href="#contactos">Contactos</a></li>
+                        <li><a href="#favoritos">Favoritos</a></li>
+                        <li><a href="#nuevo">Nuevo</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    )
+}

@@ -1,39 +1,19 @@
-import React, { useState } from 'react';
-import contacts from '../data/contacts';
+import ContactRow from './ContactRow'
 
-const ContactList = ({ onSelectContact }) => {
-  const [view, setView] = useState('list');
-
-  const toggleView = () => {
-    setView(view === 'list' ? 'cards' : 'list');
-  };
-
-  return (
-    <div>
-      <h2>Contact List</h2>
-      <button onClick={toggleView}>
-        Toggle View
-      </button>
-      {view === 'list' ? (
-        <ul>
-          {contacts.map(contact => (
-            <li key={contact.id} onClick={() => onSelectContact(contact)}>
-              {contact.name} - {contact.phone}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div className="cards">
-          {contacts.map(contact => (
-            <div key={contact.id} className="card" onClick={() => onSelectContact(contact)}>
-              <h3>{contact.name}</h3>
-              <p>{contact.phone}</p>
-            </div>
-          ))}
+const ContactList = ({ contacts }) => {
+    return (
+        <div className="contact-list">
+            <h2>Mis Contactos</h2>
+            <ul>
+                {contacts.map((contact, index) => (
+                    <ContactRow 
+                        key={index} 
+                        contact={contact}
+                    />
+                ))}
+            </ul>
         </div>
-      )}
-    </div>
-  );
-};
+    )
+}
 
-export default ContactList;
+export default ContactList

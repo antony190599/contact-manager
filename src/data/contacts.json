@@ -1,0 +1,182 @@
+[
+  {
+      "fullname": "Juan Perez",
+      "phonenumber": "+51 987654321",
+      "email": "juan.perez@example.com",
+      "type": "familia"
+  },
+  {
+      "fullname": "Maria Lopez",
+      "phonenumber": "+51 912345678",
+      "email": "maria.lopez@example.com",
+      "type": "social"
+  },
+  {
+      "fullname": "Carlos Sanchez",
+      "phonenumber": "+51 923456789",
+      "email": "carlos.sanchez@example.com",
+      "type": "trabajo"
+  },
+  {
+      "fullname": "Ana Torres",
+      "phonenumber": "+51 934567890",
+      "email": "ana.torres@example.com",
+      "type": "familia"
+  },
+  {
+      "fullname": "Luis Ramirez",
+      "phonenumber": "+51 945678901",
+      "email": "luis.ramirez@example.com",
+      "type": "social"
+  },
+  {
+      "fullname": "Elena Diaz",
+      "phonenumber": "+51 956789012",
+      "email": "elena.diaz@example.com",
+      "type": "trabajo"
+  },
+  {
+      "fullname": "Miguel Fernandez",
+      "phonenumber": "+51 967890123",
+      "email": "miguel.fernandez@example.com",
+      "type": "familia"
+  },
+  {
+      "fullname": "Laura Gomez",
+      "phonenumber": "+51 978901234",
+      "email": "laura.gomez@example.com",
+      "type": "social"
+  },
+  {
+      "fullname": "Jorge Martinez",
+      "phonenumber": "+51 989012345",
+      "email": "jorge.martinez@example.com",
+      "type": "trabajo"
+  },
+  {
+      "fullname": "Patricia Ruiz",
+      "phonenumber": "+51 990123456",
+      "email": "patricia.ruiz@example.com",
+      "type": "familia"
+  },
+  {
+      "fullname": "Ricardo Morales",
+      "phonenumber": "+51 901234567",
+      "email": "ricardo.morales@example.com",
+      "type": "social"
+  },
+  {
+      "fullname": "Sofia Herrera",
+      "phonenumber": "+51 912345678",
+      "email": "sofia.herrera@example.com",
+      "type": "trabajo"
+  },
+  {
+      "fullname": "Diego Castro",
+      "phonenumber": "+51 923456789",
+      "email": "diego.castro@example.com",
+      "type": "familia"
+  },
+  {
+      "fullname": "Valeria Rojas",
+      "phonenumber": "+51 934567890",
+      "email": "valeria.rojas@example.com",
+      "type": "social"
+  },
+  {
+      "fullname": "Fernando Vargas",
+      "phonenumber": "+51 945678901",
+      "email": "fernando.vargas@example.com",
+      "type": "trabajo"
+  },
+  {
+      "fullname": "Gabriela Mendoza",
+      "phonenumber": "+51 956789012",
+      "email": "gabriela.mendoza@example.com",
+      "type": "familia"
+  },
+  {
+      "fullname": "Andres Paredes",
+      "phonenumber": "+51 967890123",
+      "email": "andres.paredes@example.com",
+      "type": "social"
+  },
+  {
+      "fullname": "Camila Salazar",
+      "phonenumber": "+51 978901234",
+      "email": "camila.salazar@example.com",
+      "type": "trabajo"
+  },
+  {
+      "fullname": "Sebastian Ortiz",
+      "phonenumber": "+51 989012345",
+      "email": "sebastian.ortiz@example.com",
+      "type": "familia"
+  },
+  {
+      "fullname": "Isabella Chavez",
+      "phonenumber": "+51 990123456",
+      "email": "isabella.chavez@example.com",
+      "type": "social"
+  },
+  {
+      "fullname": "Daniela Flores",
+      "phonenumber": "+51 901234567",
+      "email": "daniela.flores@example.com",
+      "type": "trabajo"
+  },
+  {
+      "fullname": "Mateo Gutierrez",
+      "phonenumber": "+51 912345678",
+      "email": "mateo.gutierrez@example.com",
+      "type": "familia"
+  },
+  {
+      "fullname": "Lucia Jimenez",
+      "phonenumber": "+51 923456789",
+      "email": "lucia.jimenez@example.com",
+      "type": "social"
+  },
+  {
+      "fullname": "Santiago Romero",
+      "phonenumber": "+51 934567890",
+      "email": "santiago.romero@example.com",
+      "type": "trabajo"
+  },
+  {
+      "fullname": "Victoria Navarro",
+      "phonenumber": "+51 945678901",
+      "email": "victoria.navarro@example.com",
+      "type": "familia"
+  },
+  {
+      "fullname": "Emilio Peña",
+      "phonenumber": "+51 956789012",
+      "email": "emilio.pena@example.com",
+      "type": "social"
+  },
+  {
+      "fullname": "Martina Soto",
+      "phonenumber": "+51 967890123",
+      "email": "martina.soto@example.com",
+      "type": "trabajo"
+  },
+  {
+      "fullname": "Julian Aguilar",
+      "phonenumber": "+51 978901234",
+      "email": "julian.aguilar@example.com",
+      "type": "familia"
+  },
+  {
+      "fullname": "Renata Delgado",
+      "phonenumber": "+51 989012345",
+      "email": "renata.delgado@example.com",
+      "type": "social"
+  },
+  {
+      "fullname": "Benjamin Reyes",
+      "phonenumber": "+51 990123456",
+      "email": "benjamin.reyes@example.com",
+      "type": "trabajo"
+  }
+]
