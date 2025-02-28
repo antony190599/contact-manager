@@ -1,8 +1,9 @@
 
-import React from 'react';
+import PropTypes from 'prop-types';
 import ContactCard from './ContactCard';
 
 const ContactGrid = ({ contacts }) => {
+  console.log(contacts);
   return (
     <div className="contact-grid">
       {contacts.map((contact, index) => (
@@ -10,6 +11,10 @@ const ContactGrid = ({ contacts }) => {
       ))}
     </div>
   );
+};
+
+ContactGrid.propTypes = {
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ContactGrid;

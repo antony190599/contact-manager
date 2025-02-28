@@ -1,11 +1,11 @@
 
-import React from 'react';
 import { getTypeIcon } from '../libs/utils';
+import PropTypes from 'prop-types';
 
 const ContactDetail = ({ contact, onClear }) => {
   return (
     <div className="contact-detail">
-      <h2>Contacto Destacado</h2>
+      <h3>Contacto Destacado</h3>
       <div className="detail-card">
         <h3>
           <span className="contact-type">{getTypeIcon(contact.type)}</span>
@@ -17,6 +17,11 @@ const ContactDetail = ({ contact, onClear }) => {
       </div>
     </div>
   );
+};
+
+ContactDetail.propTypes = {
+  contact: PropTypes.object.isRequired,
+  onClear: PropTypes.func.isRequired,
 };
 
 export default ContactDetail;

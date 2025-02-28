@@ -1,5 +1,4 @@
-// src/App.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Header from './components/Header';
 import ContactList from './components/ContactList';
@@ -24,28 +23,34 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className="app-dashboard">
       <Header />
-      <div className="app-container">
-        <aside className="sidebar">
-          {selectedContact ? (
-            <ContactDetail contact={selectedContact} onClear={handleClearContact} />
-          ) : (
-            <p>Ningún contacto seleccionado</p>
-          )}
-        </aside>
-        <main className="main-content">
+      
+      <aside className="sidebar">
+        {selectedContact ? (
+          <ContactDetail contact={selectedContact} onClear={handleClearContact} />
+        ) : (
+          <p>Ningún contacto seleccionado</p>
+        )}
+      </aside>
+
+      <main className="main-content">
+        <div className='main-title'>
+          <h3>Mis Contactos</h3>
           <button onClick={toggleView}>
             {isCardView ? 'Vista de Lista' : 'Vista de Tarjetas'}
           </button>
-          {isCardView ? (
-            <ContactGrid contacts={contacts} />
-          ) : (
-            <ContactList contacts={contacts} onContactClick={handleContactClick} />
-          )}
-        </main>
-      </div>
+          
+        </div>
+        
+        {isCardView ? (
+          <ContactGrid contacts={contacts} />
+        ) : (
+          <ContactList contacts={contacts} onContactClick={handleContactClick} />
+        )}
+      </main>
     </div>
+
   );
 }
 

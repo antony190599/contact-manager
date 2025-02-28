@@ -1,12 +1,10 @@
-// src/components/ContactList.jsx
-import React from 'react';
+import PropTypes from 'prop-types';
 
 import ContactRow from './ContactRow';
 
 const ContactList = ({ contacts, onContactClick }) => {
   return (
     <div className="contact-list">
-      <h2>Mis Contactos</h2>
       <ul>
         {contacts.map((contact, index) => (
           <ContactRow key={index} contact={contact} onClick={() => onContactClick(contact)} />
@@ -14,6 +12,11 @@ const ContactList = ({ contacts, onContactClick }) => {
       </ul>
     </div>
   );
+};
+
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onContactClick: PropTypes.func.isRequired,
 };
 
 export default ContactList;
