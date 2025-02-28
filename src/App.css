@@ -1,33 +1,40 @@
 /* General Styles */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 1rem;
   text-align: center;
   font-family: 'Poppins', sans-serif;
   background-color: #f4f7fc;
   color: #333;
 }
 
+.app-dashboard {
+  display: grid;
+  grid-template-columns: 275px 1fr;
+  grid-template-rows: 60px 1fr;
+  grid-template-areas: 
+    "header header"
+    "sidebar main";
+  height: 100vh;
+  transition: all 0.3s ease;
+}
+
 /* Header */
 .app-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  grid-area: header;
   background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  padding: 1rem 0;
+  z-index: 10;
 }
 
 .header-content {
-  max-width: 1200px;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
+  width: 100%;
 }
 
 .app-header h1 {
@@ -57,38 +64,58 @@
   transform: scale(1.1);
 }
 
-/* Main Layout */
-.app-container {
-  margin-top: 5rem;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
 
 /* Sidebar */
 .sidebar {
+  grid-area: sidebar;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   background: #ffffff;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #333333;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 /* Main Content */
 .main-content {
-  width: 100%;
-  background: #ffffff;
-  padding: 2rem;
+  grid-area: main;
+  
+  margin: 1.5rem;
+  background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
 }
+
+.main-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-content .main-title h3 {
+  display: flex ;
+  color: #333;
+  margin: 1.5rem;
+}
+
+.main-content .main-title button {
+  padding: 0.5rem 1rem;
+  border: none;
+  color: #000;
+  border-radius: 5px;
+  margin-right: 1.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+
+
 
 /* Contact List */
 .contact-list {
-  background: #ffffff;
   padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .contact-list h2 {
@@ -100,14 +127,15 @@
   display: flex;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px solid #ddd;
+  border: 1px solid #2575fc;
   transition: background 0.3s;
   border-radius: 6px;
+  margin-bottom: 10px;
 }
 
 .contact-row:hover {
   background: #e3e7fd;
-  transform: scale(1.02);
+  /* transform: scale(1.02); */
 }
 
 .contact-type {
@@ -117,7 +145,7 @@
 }
 
 .contact-name {
-  font-weight: 600;
+  font-weight: 400;
   color: #333;
 }
 
@@ -133,6 +161,43 @@
   gap: 0.5rem;
 }
 
+
+.contact-card {
+  text-align: left;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.contact-card .contact-card-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-card .contact-card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 1rem;
+}
+
+.contact-card .contact-card-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 14px;
+  font-style: italic;
+}
+
+
+
+
+
 /* Responsive Design */
 @media (min-width: 768px) {
   .app-container {
@@ -141,9 +206,8 @@
   }
 
   .sidebar {
-    width: 300px;
-    position: sticky;
-    top: 80px;
+
+    
   }
 
   .main-content {

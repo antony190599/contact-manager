@@ -1,19 +1,22 @@
-import ContactRow from './ContactRow'
+import PropTypes from 'prop-types';
 
-const ContactList = ({ contacts }) => {
-    return (
-        <div className="contact-list">
-            <h2>Mis Contactos</h2>
-            <ul>
-                {contacts.map((contact, index) => (
-                    <ContactRow 
-                        key={index} 
-                        contact={contact}
-                    />
-                ))}
-            </ul>
-        </div>
-    )
-}
+import ContactRow from './ContactRow';
 
-export default ContactList
+const ContactList = ({ contacts, onContactClick }) => {
+  return (
+    <div className="contact-list">
+      <ul>
+        {contacts.map((contact, index) => (
+          <ContactRow key={index} contact={contact} onClick={() => onContactClick(contact)} />
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onContactClick: PropTypes.func.isRequired,
+};
+
+export default ContactList;
