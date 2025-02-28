@@ -133,6 +133,8 @@
   gap: 0.5rem;
 }
 
+
+
 /* Responsive Design */
 @media (min-width: 768px) {
   .app-container {
