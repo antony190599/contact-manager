@@ -76,6 +76,9 @@ Una de las mejoras realizadas a la respuesta inicial generada por la IA fue aseg
 
 Con estas mejoras, la aplicación ahora muestra correctamente el correo electrónico del contacto destacado, proporcionando una experiencia de usuario más completa y funcional.
 
+**URL DE DESPLIEGUE:** https://mellow-bavarois-de2bab.netlify.app/
+
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
