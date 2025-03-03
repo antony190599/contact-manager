@@ -3,7 +3,7 @@
 Esta es una aplicación simple de gestión de contactos construida con React.
 
 ## Estructura del Proyecto
-
+```
 contact-manager/
 ├── src/
 │   ├── components/
@@ -24,7 +24,7 @@ contact-manager/
 ├── index.html
 ├── package.json
 ├── README.md
-
+```
   
 
 
