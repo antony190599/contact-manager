@@ -110,9 +110,6 @@
   transition: background 0.3s;
 }
 
-
-
-
 /* Contact List */
 .contact-list {
   padding: 1.5rem;
@@ -131,6 +128,10 @@
   transition: background 0.3s;
   border-radius: 6px;
   margin-bottom: 10px;
+}
+
+.contact-row.selected {
+  background: #e3e7fd;
 }
 
 .contact-row:hover {
@@ -160,7 +161,6 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-
 
 .contact-card {
   text-align: left;
@@ -194,20 +194,29 @@
   font-style: italic;
 }
 
+/* Selection History */
+.selection-history {
+  margin: 1.5rem;
+}
 
+.selection-history h4 {
+  margin-bottom: 0.5rem;
+}
 
+.selection-history ul {
+  list-style: none;
+  padding: 0;
+}
 
+.selection-history li {
+  margin-bottom: 0.5rem;
+}
 
 /* Responsive Design */
 @media (min-width: 768px) {
   .app-container {
     flex-direction: row;
     align-items: flex-start;
-  }
-
-  .sidebar {
-
-    
   }
 
   .main-content {
