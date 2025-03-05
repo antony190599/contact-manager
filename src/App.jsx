@@ -9,9 +9,14 @@ import contacts from './data/contacts.json';
 function App() {
   const [selectedContact, setSelectedContact] = useState(null);
   const [isCardView, setIsCardView] = useState(false);
+  const [selectionHistory, setSelectionHistory] = useState([]);
 
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
+    setSelectionHistory((prevHistory) => {
+      const newHistory = [contact, ...prevHistory];
+      return newHistory.slice(0, 3);
+    });
   };
 
   const handleClearContact = () => {
@@ -40,17 +45,24 @@ function App() {
           <button onClick={toggleView}>
             {isCardView ? 'Vista de Lista' : 'Vista de Tarjetas'}
           </button>
-          
         </div>
         
         {isCardView ? (
           <ContactGrid contacts={contacts} />
         ) : (
-          <ContactList contacts={contacts} onContactClick={handleContactClick} />
+          <ContactList contacts={contacts} onContactClick={handleContactClick} selectedContact={selectedContact} />
         )}
+
+        <div className="selection-history">
+          <h4>Historial de Selección</h4>
+          <ul>
+            {selectionHistory.map((contact, index) => (
+              <li key={index}>{contact.fullname}</li>
+            ))}
+          </ul>
+        </div>
       </main>
     </div>
-
   );
 }
 

@@ -15,6 +15,7 @@ const ContactGrid = ({ contacts }) => {
 
 ContactGrid.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  
 };
 
 export default ContactGrid;
