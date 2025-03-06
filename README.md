@@ -3,30 +3,29 @@
 Esta es una aplicación simple de gestión de contactos construida con React.
 
 ## Estructura del Proyecto
+```
+contact-manager/
+├── src/
+│   ├── components/
+│   │   ├── ContactList.jsx
+│   │   ├── ContactDetail.jsx
+│   │   ├── Header.jsx
+│   │   ├── ContactCard.jsx
+│   │   ├── ContactGrid.jsx
+│   │   ├── ContactRow.jsx
+│   ├── data/
+│   │   ├── Contacts.json
+│   ├── libs/
+│   │   ├── utils.js
+│   ├── App.css
+│   ├── App.jsx
+│   ├── index.css
+│   ├── main.jsx
+├── index.html
+├── package.json
+├── README.md
+```
 
-contact-manager/ 
-├── src/  
-|   ├── components/ 
-|   │   ├── ContactList.jsx 
-|   │   ├── ContactDetail.jsx 
-|   │   ├── Header.jsx 
-|   |   ├── ContactCard.jsx 
-|   │   ├── ContactGrid.jsx 
-|   │   ├── ContactRowjsx 
-|   |
-|   ├── data/ 
-|   │   ├── Contacts.json 
-|   ├── libs/
-|   |   ├── utils.js 
-|   |
-|   ├── App.css
-|   ├── App.jsx
-|   ├── index.css
-|   ├── main.jsx
-├──index.html
-├──package.json
-├──README.md  
-  
 
 
 ## Componentes
@@ -98,7 +97,9 @@ Una de las mejoras realizadas a la respuesta inicial generada por la IA fue aseg
 
 Con estas mejoras, la aplicación ahora muestra correctamente el correo electrónico del contacto destacado, proporcionando una experiencia de usuario más completa y funcional.
 
+
 [URL DE DESPLIEGUE](https://mellow-bavarois-de2bab.netlify.app/)
+
 
 Currently, two official plugins are available:
 
