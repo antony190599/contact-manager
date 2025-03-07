@@ -284,13 +284,61 @@
   font-size: 1rem;
 }
 /* Responsive Design */
-@media (min-width: 768px) {
-  .app-container {
-    flex-direction: row;
-    align-items: flex-start;
+@media (max-width: 768px) {
+  .app-dashboard {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+      "header"
+      "main";
+  }
+
+  .sidebar {
+    display: none;
   }
 
   .main-content {
-    flex: 1;
+    margin: 1rem;
+  }
+
+  .main-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-content .main-title h3 {
+    margin: 1rem 0;
+  }
+
+  .main-content .main-title button {
+    margin: 0;
+  }
+}
+@media (max-width: 480px) {
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .app-header nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .app-header nav a {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .contact-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-card {
+    flex-direction: column;
+  }
+
+  .contact-card .contact-card-data {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }
