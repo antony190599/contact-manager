@@ -1,15 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import ContactList from './components/ContactList';
 import ContactGrid from './components/ContactGrid';
 import ContactDetail from './components/ContactDetail';
-import contacts from './data/contacts.json';
+import ContactForm from './components/ContactForm';
+import contactsData from './data/contacts.json';
 
 function App() {
+  const [contacts, setContacts] = useState(() => {
+    const savedContacts = localStorage.getItem('contacts');
+    return savedContacts ? JSON.parse(savedContacts) : contactsData;
+  });
   const [selectedContact, setSelectedContact] = useState(null);
   const [isCardView, setIsCardView] = useState(false);
   const [selectionHistory, setSelectionHistory] = useState([]);
+  const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
@@ -26,6 +36,18 @@ function App() {
   const toggleView = () => {
     setIsCardView(!isCardView);
   };
+
+  const handleSaveContact = (newContact) => {
+    setContacts((prevContacts) => [newContact, ...prevContacts]);
+  };
+
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
+
+  const filteredContacts = contacts.filter((contact) =>
+    contact.fullname.toLowerCase().includes(filter.toLowerCase())
+  );
 
   return (
     <div className="app-dashboard">
@@ -47,10 +69,20 @@ function App() {
           </button>
         </div>
         
+        <ContactForm onSave={handleSaveContact} />
+
+        <input
+          type="text"
+          placeholder="Filtrar contactos"
+          value={filter}
+          onChange={handleFilterChange}
+          className="filter-input"
+        />
+
         {isCardView ? (
-          <ContactGrid contacts={contacts} />
+          <ContactGrid contacts={filteredContacts} />
         ) : (
-          <ContactList contacts={contacts} onContactClick={handleContactClick} selectedContact={selectedContact} />
+          <ContactList contacts={filteredContacts} onContactClick={handleContactClick} selectedContact={selectedContact} />
         )}
 
         <div className="selection-history">
