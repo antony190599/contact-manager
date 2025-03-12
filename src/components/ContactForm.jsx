@@ -55,13 +55,11 @@ export default function ContactForm({
   const handleSubmit = (e) => {
     e.preventDefault()
     if (validateForm()) {
-      const contacts = JSON.parse(localStorage.getItem('contacts') || '[]')
       const newContact = {
         id: Date.now(),
         ...formData
       }
-      contacts.push(newContact)
-      handleSubmitLogic(contacts)
+      handleSubmitLogic(newContact)
       setIsModalOpen(false)
     }
   }

@@ -3,7 +3,9 @@ import ContactItem from './ContactItem'
 import RightModal from './RightModal'
 import PinnedContacts from './PinnedContacts'
 import ContactForm from './ContactForm'
-import { fetchContacts } from '../api/contacts'
+import ContactService from '../api/ContactService'
+
+const contactService = new ContactService()
 
 export default function ContactList() {
   const [contacts, setContacts] = useState([])
@@ -17,7 +19,7 @@ export default function ContactList() {
     setIsLoading(true)
     setErrorMessage('')
     try {
-      const data = await fetchContacts()
+      const data = await contactService.fetchContacts()
       setContacts(data)
     } catch (error) {
       setErrorMessage(error.message)
@@ -39,10 +41,13 @@ export default function ContactList() {
     }
   }, [contacts])
 
-  const deleteContact = (id) => {
-    const updatedContacts = contacts.filter(contact => contact.id !== id)
-    setContacts(updatedContacts)
-    localStorage.setItem('contacts', JSON.stringify(updatedContacts))
+  const deleteContact = async (id) => {
+    try {
+      await contactService.deleteContact(id)
+      loadContacts()
+    } catch (error) {
+      setErrorMessage(`Failed to delete contact: ${error.message}`)
+    }
   }
 
   const togglePin = (id) => {
@@ -50,18 +55,35 @@ export default function ContactList() {
       contact.id === id ? { ...contact, isPinned: !contact.isPinned } : contact
     )
     setContacts(updatedContacts)
-    localStorage.setItem('contacts', JSON.stringify(updatedContacts))
   }
 
-  const handleSubmitLogic = (contacts) => {
-    setContacts(contacts)
-    localStorage.setItem('contacts', JSON.stringify(contacts))
-    setIsModalOpen(false)
+  const handleSubmitLogic = async (contactData) => {
+    try {
+      setIsLoading(true)
+      await contactService.addContact({
+        fullname: `${contactData.firstName} ${contactData.lastName}`,
+        email: contactData.email,
+        phonenumber: contactData.phonenumber,
+        type: contactData.type
+      })
+      
+      // Close modal and reload contacts after successful addition
+      setIsModalOpen(false)
+      loadContacts()
+    } catch (error) {
+      setErrorMessage(`Failed to add contact: ${error.message}`)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const filteredContacts = contacts.filter(contact =>
-    `${contact.firstName} ${contact.lastName}`.toLowerCase().includes(filter.toLowerCase())
+    `${contact.fullname}`.toLowerCase().includes(filter.toLowerCase())
   )
+
+  console.log(contacts)
+  console.log(filter)
+  console.log(filteredContacts)
 
   return (
     <div className="flex gap-6 p-6">
@@ -104,7 +126,7 @@ export default function ContactList() {
             placeholder="Filter contacts..."
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 rounded-lg bg-white border border-gray-300"
           />
         </div>
 

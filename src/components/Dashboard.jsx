@@ -6,6 +6,9 @@ import {
   BriefcaseIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
+import ContactService from '../api/ContactService'
+
+const contactService = new ContactService()
 
 export default function Dashboard() {
   const [metrics, setMetrics] = useState({
@@ -19,23 +22,30 @@ export default function Dashboard() {
   });
 
   useEffect(() => {
-    const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
-    const pinnedContacts = contacts.filter(contact => contact.isPinned);
+    contactService.fetchContacts().then(data => {
+      const pinnedContacts = data.filter(contact => contact.isPinned)
     
-    const typeCount = contacts.reduce((acc, contact) => {
-      acc[contact.type] = (acc[contact.type] || 0) + 1;
-      return acc;
-    }, {});
+      const typeCount = data.reduce((acc, contact) => {
+        acc[contact.type] = (acc[contact.type] || 0) + 1;
+        return acc;
+      }, {});
 
-    setMetrics({
-      total: contacts.length,
-      pinned: pinnedContacts.length,
-      byType: {
-        familia: typeCount.familia || 0,
-        social: typeCount.social || 0,
-        trabajo: typeCount.trabajo || 0
-      }
+      setMetrics({
+        total: data.length,
+        pinned: pinnedContacts.length,
+        byType: {
+          familia: typeCount.familia || 0,
+          social: typeCount.social || 0,
+          trabajo: typeCount.trabajo || 0
+        }
+      });
+
     });
+    
+
+    return () => {
+
+    }
   }, []);
 
   const MetricCard = ({ title, value, color }) => (

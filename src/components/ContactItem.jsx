@@ -46,7 +46,7 @@ import {
           <div className="flex items-center space-x-3">
             <UserCircleIcon className="h-10 w-10 text-gray-400" />
             <div>
-              <h3 className="font-bold text-lg">{contact.firstName} {contact.lastName}</h3>
+              <h3 className="font-bold text-lg">{ contact.fullname ?? `${contact.firstName} ${contact.lastName}`}</h3>
               <div className="flex items-center space-x-4 mt-2">
                 <div className="flex items-center text-gray-600">
                   <EnvelopeIcon className="h-4 w-4 mr-2 text-gray-400" />
