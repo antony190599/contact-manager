@@ -72,7 +72,7 @@ Una de las mejoras realizadas a la respuesta inicial generada por la IA fue aseg
         <div className="contact-detail">
           <h2>Contacto Destacado</h2>
           <p>Nombre: {contact.name}</p>
-          <p>Teléfono: {contact.phone}</p>
+          <p>Teléfono: {contact.phonenumber}</p>
           <p>Correo: {contact.email}</p>
         </div>
       );
