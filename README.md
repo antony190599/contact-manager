@@ -8,16 +8,17 @@ contact-manager/
 ├── src/
 │   ├── components/
 │   │   ├── ContactList.jsx
-│   │   ├── ContactDetail.jsx
-│   │   ├── Header.jsx
-│   │   ├── ContactCard.jsx
-│   │   ├── ContactGrid.jsx
-│   │   ├── ContactRow.jsx
-│   ├── data/
-│   │   ├── Contacts.json
-│   ├── libs/
-│   │   ├── utils.js
-│   ├── App.css
+│   │   ├── ContactItem.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── PinnedContacts.jsx
+│   │   ├── ContactForm.jsx
+│   │   ├── RightModal.jsx
+|   |   ├── Sidebar.jsx
+│   ├
+│   │   
+│   ├
+│   │   
+│   ├
 │   ├── App.jsx
 │   ├── index.css
 │   ├── main.jsx
