@@ -9,7 +9,7 @@ export default function ContactForm({
     lastName: '',
     email: '',
     phone: '',
-    contactType: ''
+    type: ''
   })
 
   const validateForm = () => {
@@ -44,8 +44,8 @@ export default function ContactForm({
     }
 
     // Contact Type validation
-    if (!formData.contactType) {
-      newErrors.contactType = 'Contact type is required'
+    if (!formData.type) {
+      newErrors.type = 'Contact type is required'
     }
 
     setErrors(newErrors)
@@ -124,7 +124,7 @@ export default function ContactForm({
               <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
               <input
                 type="tel"
-                name="phone"
+                name="phonenumber"
                 value={formData.phonenumber}
                 onChange={handleChange}
                 className={`w-full p-3 border rounded-lg ${errors.phonenumber ? 'border-red-500' : 'border-gray-300'}`}
@@ -135,17 +135,17 @@ export default function ContactForm({
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Contact Type</label>
               <select
-                name="contactType"
-                value={formData.contactType}
+                name="type"
+                value={formData.type}
                 onChange={handleChange}
-                className={`w-full p-3 border rounded-lg ${errors.contactType ? 'border-red-500' : 'border-gray-300'}`}
+                className={`w-full p-3 border rounded-lg ${errors.type ? 'border-red-500' : 'border-gray-300'}`}
               >
                 <option value="">Select a type</option>
                 <option value="familia">Familia</option>
                 <option value="social">Social</option>
                 <option value="trabajo">Trabajo</option>
               </select>
-              {errors.contactType && <p className="text-red-500 text-sm mt-1">{errors.contactType}</p>}
+              {errors.type && <p className="text-red-500 text-sm mt-1">{errors.type}</p>}
             </div>
           </div>
 

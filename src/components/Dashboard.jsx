@@ -23,7 +23,7 @@ export default function Dashboard() {
     const pinnedContacts = contacts.filter(contact => contact.isPinned);
     
     const typeCount = contacts.reduce((acc, contact) => {
-      acc[contact.contactType] = (acc[contact.contactType] || 0) + 1;
+      acc[contact.type] = (acc[contact.type] || 0) + 1;
       return acc;
     }, {});
 

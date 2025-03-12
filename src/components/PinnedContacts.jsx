@@ -13,7 +13,7 @@ export function PinnedContact({contact}) {
         return pinnedColors[type] || 'bg-gray-100'
       }
 
-    return (<div className={`p-4 rounded-lg shadow hover:shadow-md transition-shadow ${getBackgroundColor(contact.contactType)}`}>
+    return (<div className={`p-4 rounded-lg shadow hover:shadow-md transition-shadow ${getBackgroundColor(contact.type)}`}>
         <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
                 <div>

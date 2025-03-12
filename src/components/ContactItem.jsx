@@ -41,7 +41,7 @@ import {
     }
   
     return (
-      <div className={`p-4 rounded-lg shadow hover:shadow-md transition-shadow ${getBackgroundColor(contact.contactType, contact.isPinned)}`}>
+      <div className={`p-4 rounded-lg shadow hover:shadow-md transition-shadow ${getBackgroundColor(contact.type, contact.isPinned)}`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <UserCircleIcon className="h-10 w-10 text-gray-400" />
@@ -61,7 +61,7 @@ import {
           </div>
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
-              {getContactTypeIcon(contact.contactType)}
+              {getContactTypeIcon(contact.type)}
             </div>
             <button
               onClick={() => onTogglePin(contact.id)}

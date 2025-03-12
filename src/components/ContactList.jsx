@@ -13,20 +13,20 @@ export default function ContactList() {
   const [isLoading, setIsLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
-  useEffect(() => {
-    const loadContacts = async () => {
-      setIsLoading(true)
-      setErrorMessage('')
-      try {
-        const data = await fetchContacts()
-        setContacts(data)
-      } catch (error) {
-        setErrorMessage(error.message)
-      } finally {
-        setIsLoading(false)
-      }
+  const loadContacts = async () => {
+    setIsLoading(true)
+    setErrorMessage('')
+    try {
+      const data = await fetchContacts()
+      setContacts(data)
+    } catch (error) {
+      setErrorMessage(error.message)
+    } finally {
+      setIsLoading(false)
     }
+  }
 
+  useEffect(() => {
     loadContacts()
   }, [])
 
@@ -81,12 +81,21 @@ export default function ContactList() {
       <div className="flex-1">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">Contact List</h2>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-          >
-            Add New Contact
-          </button>
+          <div>
+            <button
+              onClick={() => loadContacts()}
+              className="px-4 py-2 me-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            >
+              Retrieve contacts
+            </button>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            >
+              Add New Contact
+            </button>
+          </div>
+          
         </div>
 
         <div className="mb-4">
