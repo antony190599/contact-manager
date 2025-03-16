@@ -41,7 +41,7 @@ export default function ContactList() {
     }
   }, [contacts])
 
-  const deleteContact = async (id) => {
+  const handleDeleteContact = async (id) => {
     try {
       await contactService.deleteContact(id)
       loadContacts()
@@ -140,7 +140,7 @@ export default function ContactList() {
               <ContactItem 
                 key={contact.id}
                 contact={contact}
-                onDelete={deleteContact}
+                onDelete={handleDeleteContact}
                 onTogglePin={togglePin}
               />
             ))}
