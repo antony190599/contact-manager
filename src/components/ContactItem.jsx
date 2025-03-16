@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import DeleteContactAlert from './DeleteContactAlert';
 import { 
     EnvelopeIcon, 
     PhoneIcon, 
@@ -11,6 +13,16 @@ import {
   import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid'
   
   export default function ContactItem({ contact, onDelete, onTogglePin }) {
+    const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
+  
+    const openDeleteAlert = () => setIsDeleteAlertOpen(true);
+    const closeDeleteAlert = () => setIsDeleteAlertOpen(false);
+  
+    const handleDelete = () => {
+      onDelete(contact.id);
+      closeDeleteAlert();
+    };
+  
     const getContactTypeIcon = (type) => {
       switch(type) {
         case 'familia':
@@ -50,7 +62,13 @@ import {
               <div className="flex items-center space-x-4 mt-2">
                 <div className="flex items-center text-gray-600">
                   <EnvelopeIcon className="h-4 w-4 mr-2 text-gray-400" />
-                  <span>{contact.email}</span>
+                  <a 
+                    href={`mailto:${contact.email}`}
+                    className="hover:underline transition-colors"
+                    title={`Send email to ${contact.email}`}
+                  >
+                    {contact.email}
+                  </a>
                 </div>
                 <div className="flex items-center text-gray-600">
                   <PhoneIcon className="h-4 w-4 mr-2 text-gray-400" />
@@ -74,13 +92,19 @@ import {
               )}
             </button>
             <button
-              onClick={() => onDelete(contact.id)}
+              onClick={openDeleteAlert}
               className="p-2 text-red-500 hover:bg-red-50 rounded-full transition-colors"
             >
               <TrashIcon className="h-5 w-5" />
             </button>
           </div>
         </div>
+        <DeleteContactAlert 
+          isOpen={isDeleteAlertOpen}
+          onClose={closeDeleteAlert}
+          onConfirm={handleDelete}
+          contactName={contact.fullname ?? `${contact.firstName} ${contact.lastName}`}
+        />
       </div>
     )
   }
