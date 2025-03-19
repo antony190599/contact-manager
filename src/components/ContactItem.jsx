@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DeleteContactAlert from './DeleteContactAlert';
 import { 
     EnvelopeIcon, 
@@ -14,13 +15,22 @@ import {
   
   export default function ContactItem({ contact, onDelete, onTogglePin }) {
     const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
+    const navigate = useNavigate();
   
-    const openDeleteAlert = () => setIsDeleteAlertOpen(true);
+    const openDeleteAlert = (e) => {
+      e.stopPropagation();
+      setIsDeleteAlertOpen(true);
+    };
+    
     const closeDeleteAlert = () => setIsDeleteAlertOpen(false);
   
     const handleDelete = () => {
       onDelete(contact.id);
       closeDeleteAlert();
+    };
+    
+    const navigateToDetail = () => {
+      navigate(`/contacts/${contact.id}`);
     };
   
     const getContactTypeIcon = (type) => {
@@ -53,7 +63,10 @@ import {
     }
   
     return (
-      <div className={`p-4 rounded-lg shadow hover:shadow-md transition-shadow ${getBackgroundColor(contact.type, contact.isPinned)}`}>
+      <div 
+        className={`p-4 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer ${getBackgroundColor(contact.type, contact.isPinned)}`}
+        onClick={navigateToDetail}
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <UserCircleIcon className="h-10 w-10 text-gray-400" />
@@ -66,6 +79,7 @@ import {
                     href={`mailto:${contact.email}`}
                     className="hover:underline transition-colors"
                     title={`Send email to ${contact.email}`}
+                    onClick={(e) => e.stopPropagation()}
                   >
                     {contact.email}
                   </a>
@@ -82,7 +96,10 @@ import {
               {getContactTypeIcon(contact.type)}
             </div>
             <button
-              onClick={() => onTogglePin(contact.id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                onTogglePin(contact.id);
+              }}
               className={`p-2 rounded-full transition-colors ${contact.isPinned ? 'text-yellow-500 hover:bg-yellow-50' : 'text-gray-400 hover:bg-gray-50'}`}
             >
               {contact.isPinned ? (
