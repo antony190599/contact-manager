@@ -14,6 +14,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/contacts" element={<ContactList />} />
             <Route path="/contacts/:id" element={<ContactDetail />} />
+            <Route path="/contacts/:type/type" element={<ContactList />} />
           </Routes>
         </main>
       </div>

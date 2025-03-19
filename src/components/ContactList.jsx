@@ -4,10 +4,14 @@ import RightModal from './RightModal'
 import PinnedContacts from './PinnedContacts'
 import ContactForm from './ContactForm'
 import ContactService from '../api/ContactService'
+import { useParams } from 'react-router-dom'
 
 const contactService = new ContactService()
 
 export default function ContactList() {
+
+  const { type } = useParams();
+
   const [contacts, setContacts] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isPinnedVisible, setIsPinnedVisible] = useState(false)
@@ -78,7 +82,8 @@ export default function ContactList() {
   }
 
   const filteredContacts = contacts.filter(contact =>
-    `${contact.fullname}`.toLowerCase().includes(filter.toLowerCase())
+    `${contact.fullname}`.toLowerCase().includes(filter.toLowerCase()) && 
+    (type ? contact.type === type : true)
   )
 
   console.log(contacts)
