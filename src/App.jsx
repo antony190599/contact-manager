@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Sidebar from './components/Sidebar'
 import ContactList from './components/ContactList'
+import ContactDetail from './components/ContactDetail'
 import Dashboard from './components/Dashboard'
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/contacts" element={<ContactList />} />
+            <Route path="/contacts/:id" element={<ContactDetail />} />
           </Routes>
         </main>
       </div>
