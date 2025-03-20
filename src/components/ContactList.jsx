@@ -50,6 +50,9 @@ export default function ContactList() {
     try {
       await contactService.deleteContact(id);
       loadContacts();
+      const existingContacts = JSON.parse(localStorage.getItem('contacts')) || [];
+      const updatedContacts = existingContacts.filter(contact => contact.id !== id);
+      localStorage.setItem('contacts', JSON.stringify(updatedContacts));
     } catch (error) {
       setErrorMessage(`Failed to delete contact: ${error.message}`);
     }
@@ -83,19 +86,44 @@ export default function ContactList() {
   };
 
   const saveContactsToLocalStorage = () => {
-    const existingContacts = JSON.parse(localStorage.getItem('contacts')) || [];
-    const updatedContacts = contacts.reduce((acc, contact) => {
-      const index = acc.findIndex(c => c.id === contact.id);
-      if (index !== -1) {
-        acc[index] = contact;
-      } else {
-        acc.push(contact);
-      }
-      return acc;
-    }, existingContacts);
+    try {
+      // Get existing contacts from localStorage
+      const existingContactsInLocal = JSON.parse(localStorage.getItem('contacts')) || [];
+      
+      // Create a map of current contact IDs for quick lookup
+      const currentContactIds = new Set(contacts.map(contact => contact.id));
+      
+      // Filter out contacts from localStorage that no longer exist in current contacts
+      const filteredContacts = existingContactsInLocal.filter(contact => 
+        currentContactIds.has(contact.id)
+      );
+      
+      // Update existing contacts with current data and add new ones
+      const updatedContacts = contacts.reduce((acc, contact) => {
+        const index = acc.findIndex(c => c.id === contact.id);
+        if (index !== -1) {
+          acc[index] = contact;
+        } else {
+          acc.push(contact);
+        }
+        return acc;
+      }, filteredContacts);
+      
+      // Save updated list to localStorage
+      localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+      setIsSuccessAlertOpen(true);
+    } catch (error) {
+      setErrorMessage(`Failed to save contacts: ${error.message}`);
+    }
+  };
 
-    localStorage.setItem('contacts', JSON.stringify(updatedContacts));
-    setIsSuccessAlertOpen(true);
+  const loadContactsFromLocalStorage = () => {
+    try {
+      const storedContacts = JSON.parse(localStorage.getItem('contacts')) || [];
+      setContacts(storedContacts);
+    } catch (error) {
+      setErrorMessage(`Failed to load contacts from LocalStorage: ${error.message}`);
+    }
   };
 
   const filteredContacts = contacts.filter(contact =>
@@ -106,7 +134,6 @@ export default function ContactList() {
   return (
     <div className="flex gap-6 p-6">
       {/* Left Side - Pinned Section */}
-
       {contacts.filter(contact => contact.isPinned).length > 0 && (
         <div className={`w-80 shrink-0 transition-all duration-300 ease-in-out transform 
           ${isPinnedVisible 
@@ -136,12 +163,17 @@ export default function ContactList() {
             </button>
             <button
               onClick={saveContactsToLocalStorage}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+              className="px-4 py-2 me-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
             >
               Save Contacts
             </button>
+            <button
+              onClick={loadContactsFromLocalStorage}
+              className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
+            >
+              Load Contacts
+            </button>
           </div>
-          
         </div>
 
         <div className="mb-4">
