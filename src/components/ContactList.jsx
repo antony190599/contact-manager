@@ -1,94 +1,107 @@
-import { useEffect, useState } from 'react'
-import ContactItem from './ContactItem'
-import RightModal from './RightModal'
-import PinnedContacts from './PinnedContacts'
-import ContactForm from './ContactForm'
-import ContactService from '../api/ContactService'
-import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import ContactItem from './ContactItem';
+import RightModal from './RightModal';
+import PinnedContacts from './PinnedContacts';
+import ContactForm from './ContactForm';
+import ContactService from '../api/ContactService';
+import SuccessAlert from './SuccessAlert';
+import { useParams } from 'react-router-dom';
 
-const contactService = new ContactService()
+const contactService = new ContactService();
 
 export default function ContactList() {
-
   const { type } = useParams();
 
-  const [contacts, setContacts] = useState([])
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isPinnedVisible, setIsPinnedVisible] = useState(false)
-  const [filter, setFilter] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [contacts, setContacts] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPinnedVisible, setIsPinnedVisible] = useState(false);
+  const [filter, setFilter] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isSuccessAlertOpen, setIsSuccessAlertOpen] = useState(false);
 
   const loadContacts = async () => {
-    setIsLoading(true)
-    setErrorMessage('')
+    setIsLoading(true);
+    setErrorMessage('');
     try {
-      const data = await contactService.fetchContacts()
-      setContacts(data)
+      const data = await contactService.fetchContacts();
+      setContacts(data);
     } catch (error) {
-      setErrorMessage(error.message)
+      setErrorMessage(error.message);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    loadContacts()
-  }, [])
+    loadContacts();
+  }, []);
 
   useEffect(() => {
-    const hasPinnedContacts = contacts.filter(contact => contact.isPinned).length > 0
+    const hasPinnedContacts = contacts.filter(contact => contact.isPinned).length > 0;
     if (hasPinnedContacts) {
-      setIsPinnedVisible(true)
+      setIsPinnedVisible(true);
     } else {
-      setIsPinnedVisible(false)
+      setIsPinnedVisible(false);
     }
-  }, [contacts])
+  }, [contacts]);
 
   const handleDeleteContact = async (id) => {
     try {
-      await contactService.deleteContact(id)
-      loadContacts()
+      await contactService.deleteContact(id);
+      loadContacts();
     } catch (error) {
-      setErrorMessage(`Failed to delete contact: ${error.message}`)
+      setErrorMessage(`Failed to delete contact: ${error.message}`);
     }
-  }
+  };
 
   const togglePin = (id) => {
-    const updatedContacts = contacts.map(contact => 
+    const updatedContacts = contacts.map(contact =>
       contact.id === id ? { ...contact, isPinned: !contact.isPinned } : contact
-    )
-    setContacts(updatedContacts)
-  }
+    );
+    setContacts(updatedContacts);
+  };
 
   const handleSubmitLogic = async (contactData) => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       await contactService.addContact({
         fullname: `${contactData.firstName} ${contactData.lastName}`,
         email: contactData.email,
         phonenumber: contactData.phonenumber,
         type: contactData.type
-      })
-      
+      });
+
       // Close modal and reload contacts after successful addition
-      setIsModalOpen(false)
-      loadContacts()
+      setIsModalOpen(false);
+      loadContacts();
     } catch (error) {
-      setErrorMessage(`Failed to add contact: ${error.message}`)
+      setErrorMessage(`Failed to add contact: ${error.message}`);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
+
+  const saveContactsToLocalStorage = () => {
+    const existingContacts = JSON.parse(localStorage.getItem('contacts')) || [];
+    const updatedContacts = contacts.reduce((acc, contact) => {
+      const index = acc.findIndex(c => c.id === contact.id);
+      if (index !== -1) {
+        acc[index] = contact;
+      } else {
+        acc.push(contact);
+      }
+      return acc;
+    }, existingContacts);
+
+    localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+    setIsSuccessAlertOpen(true);
+  };
 
   const filteredContacts = contacts.filter(contact =>
-    `${contact.fullname}`.toLowerCase().includes(filter.toLowerCase()) && 
+    `${contact.fullname}`.toLowerCase().includes(filter.toLowerCase()) &&
     (type ? contact.type === type : true)
-  )
-
-  console.log(contacts)
-  console.log(filter)
-  console.log(filteredContacts)
+  );
 
   return (
     <div className="flex gap-6 p-6">
@@ -117,9 +130,15 @@ export default function ContactList() {
             </button>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              className="px-4 py-2 me-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
             >
               Add New Contact
+            </button>
+            <button
+              onClick={saveContactsToLocalStorage}
+              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+            >
+              Save Contacts
             </button>
           </div>
           
@@ -169,6 +188,13 @@ export default function ContactList() {
         </div>
           <ContactForm setIsModalOpen={setIsModalOpen} handleSubmitLogic={handleSubmitLogic}/>
       </RightModal>
+
+      {/* Success Alert */}
+      <SuccessAlert 
+        isOpen={isSuccessAlertOpen} 
+        onClose={() => setIsSuccessAlertOpen(false)} 
+        message="Contacts saved to LocalStorage successfully!" 
+      />
     </div>
-  )
+  );
 }
