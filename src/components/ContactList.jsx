@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import ContactItem from './ContactItem';
 import RightModal from './RightModal';
 import PinnedContacts from './PinnedContacts';
 import ContactForm from './ContactForm';
 import ContactService from '../api/ContactService';
 import SuccessAlert from './SuccessAlert';
-import { useParams } from 'react-router-dom';
-
-const contactService = new ContactService();
 
 export default function ContactList({ pinnedContact, onClearContact }) {
   const { type } = useParams();
+  const { getAccessTokenSilently, user } = useAuth0();
 
   const [contacts, setContacts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,6 +20,16 @@ export default function ContactList({ pinnedContact, onClearContact }) {
   const [errorMessage, setErrorMessage] = useState('');
   const [isSuccessAlertOpen, setIsSuccessAlertOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+
+  // Initialize contact service with token getter
+  const contactService = new ContactService(async () => {
+    try {
+      return await getAccessTokenSilently();
+    } catch (error) {
+      console.error('Error getting token', error);
+      return null;
+    }
+  });
 
   const loadContacts = async () => {
     setIsLoading(true);
@@ -36,7 +46,7 @@ export default function ContactList({ pinnedContact, onClearContact }) {
 
   useEffect(() => {
     loadContacts();
-  }, []);
+  }, [user]); // Reload when user changes
 
   useEffect(() => {
     const hasPinnedContacts = contacts.filter(contact => contact.isPinned).length > 0;

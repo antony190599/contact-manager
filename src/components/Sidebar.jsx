@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { 
   HomeIcon,
   UserGroupIcon,
@@ -7,11 +8,13 @@ import {
   UsersIcon,
   BriefcaseIcon,
   ChevronDownIcon,
-  ChevronRightIcon
+  ChevronRightIcon,
+  ArrowRightStartOnRectangleIcon
 } from '@heroicons/react/24/outline';
 
 export default function Sidebar() {
   const location = useLocation();
+  const { isAuthenticated, user } = useAuth0();
   const [contactsOpen, setContactsOpen] = useState(false);
   
   // Automatically expand contacts section if current path is under contacts
@@ -45,10 +48,26 @@ export default function Sidebar() {
     }
   ];
 
+  if (!isAuthenticated) {
+    return null; // Don't show sidebar if not authenticated
+  }
+
   return (
     <div className="w-64 bg-white border-r border-gray-200 h-screen overflow-y-auto">
       <div className="flex items-center justify-center h-16 border-b border-gray-200">
         <h1 className="text-xl font-bold text-gray-800">Contact Manager</h1>
+        {user && (
+          <div className="mt-2 flex items-center">
+            {user.picture && (
+              <img 
+                src={user.picture} 
+                alt="Profile" 
+                className="w-8 h-8 rounded-full mr-2" 
+              />
+            )}
+            <span className="text-sm">{user.name}</span>
+          </div>
+        )}
       </div>
       
       <nav className="mt-6">
@@ -148,6 +167,13 @@ export default function Sidebar() {
             location.pathname === '/settings' ? 'text-blue-500' : 'text-gray-400'
           } mr-3`} />
           Settings
+        </Link>
+        <Link
+          to="/logout"
+          className="flex items-center px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
+        >
+          <ArrowRightStartOnRectangleIcon className="h-5 w-5 mr-3" />
+          Logout
         </Link>
       </div>
     </div>
