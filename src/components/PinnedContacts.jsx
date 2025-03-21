@@ -1,5 +1,5 @@
-import { EnvelopeIcon, PhoneIcon, UserCircleIcon } from "@heroicons/react/24/outline"
-import { StarIcon } from "@heroicons/react/24/solid"
+import { EnvelopeIcon, PhoneIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { StarIcon } from "@heroicons/react/24/solid";
 
 export function PinnedContact({contact}) {
     const getBackgroundColor = (type) => {
@@ -34,7 +34,7 @@ export function PinnedContact({contact}) {
     </div>)
 }
 
-export default function PinnedContacts({pinnedContacts}) {
+export default function PinnedContacts({pinnedContacts, onClearContact}) {
 
   return <div className="bg-white rounded-lg shadow-lg p-4">
         <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -48,6 +48,12 @@ export default function PinnedContacts({pinnedContacts}) {
             {pinnedContacts.length === 0 && (
                 <p className="text-gray-500 text-center">No pinned contacts found.</p>
             )}
-    </div>
+        </div>
+        <button
+          onClick={onClearContact}
+          className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+        >
+          Clear Pinned Contact
+        </button>
     </div>
 }
