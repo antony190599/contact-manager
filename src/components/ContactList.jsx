@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 const contactService = new ContactService();
 
-export default function ContactList() {
+export default function ContactList({ pinnedContact, onClearContact }) {
   const { type } = useParams();
 
   const [contacts, setContacts] = useState([]);
@@ -19,6 +19,7 @@ export default function ContactList() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isSuccessAlertOpen, setIsSuccessAlertOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const loadContacts = async () => {
     setIsLoading(true);
@@ -111,6 +112,7 @@ export default function ContactList() {
       
       // Save updated list to localStorage
       localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+      setSuccessMessage('Contacts saved to LocalStorage successfully!');
       setIsSuccessAlertOpen(true);
     } catch (error) {
       setErrorMessage(`Failed to save contacts: ${error.message}`);
@@ -126,6 +128,27 @@ export default function ContactList() {
     }
   };
 
+  const syncContacts = async () => {
+    setIsLoading(true);
+    setErrorMessage('');
+    try {
+      const data = await contactService.fetchContacts();
+      setContacts(data);
+      localStorage.setItem('contacts', JSON.stringify(data));
+      setSuccessMessage('Synchronization successful!');
+      setIsSuccessAlertOpen(true);
+    } catch (error) {
+      setErrorMessage(`Failed to synchronize contacts: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Load contacts from LocalStorage when the component mounts
+  useEffect(() => {
+    loadContactsFromLocalStorage();
+  }, []);
+
   const filteredContacts = contacts.filter(contact =>
     `${contact.fullname}`.toLowerCase().includes(filter.toLowerCase()) &&
     (type ? contact.type === type : true)
@@ -140,7 +163,7 @@ export default function ContactList() {
             ? 'opacity-100 translate-x-0' 
             : 'opacity-0 -translate-x-full'
           }`}>
-          <PinnedContacts pinnedContacts={contacts.filter(contact => contact.isPinned) ?? []}/>
+          <PinnedContacts pinnedContacts={contacts.filter(contact => contact.isPinned) ?? []} onClearContact={onClearContact} />
         </div>
       )}
 
@@ -168,10 +191,10 @@ export default function ContactList() {
               Save Contacts
             </button>
             <button
-              onClick={loadContactsFromLocalStorage}
-              className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
+              onClick={syncContacts}
+              className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors"
             >
-              Load Contacts
+              Sync Contacts
             </button>
           </div>
         </div>
@@ -225,7 +248,7 @@ export default function ContactList() {
       <SuccessAlert 
         isOpen={isSuccessAlertOpen} 
         onClose={() => setIsSuccessAlertOpen(false)} 
-        message="Contacts saved to LocalStorage successfully!" 
+        message={successMessage} 
       />
     </div>
   );
