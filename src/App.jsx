@@ -56,7 +56,7 @@ function App() {
               }
             />
             <Route
-              path="/contact/:id"
+              path="/contacts/:id"
               element={
                 <ProtectedRoute>
                   <ContactDetail />

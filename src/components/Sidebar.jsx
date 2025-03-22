@@ -34,7 +34,7 @@ export default function Sidebar() {
   
   // Navigation structure with first and second level items
   const navItems = [
-    { name: 'Dashboard', path: '/', icon: HomeIcon },
+    { name: 'Dashboard', path: '/dashboard', icon: HomeIcon },
     { 
       name: 'Contacts', 
       path: '/contacts',

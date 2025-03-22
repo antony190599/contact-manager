@@ -1,2 +1,51 @@
 @import "tailwindcss";
 
+:root {
+  --color-primary: #1E3A8A;
+  --color-secondary: #10B981;
+  --color-background: #FFFFFF;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6B7280;
+  --color-success: #34D399;
+  --color-error: #EF4444;
+  --color-warning: #F59E0B;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-primary);
+}
+
+a {
+  color: var(--color-primary);
+}
+
+button.primary {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+button.secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-background);
+}
+
+.alert-success {
+  background-color: var(--color-success);
+  color: var(--color-background);
+}
+
+.alert-error {
+  background-color: var(--color-error);
+  color: var(--color-background);
+}
+
+.alert-warning {
+  background-color: var(--color-warning);
+  color: var(--color-background);
+}
+
